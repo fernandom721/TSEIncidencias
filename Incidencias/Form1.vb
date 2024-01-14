@@ -92,4 +92,8 @@ Public Class Form1
     Private Sub Direccion_TextChanged(sender As Object, e As EventArgs) Handles Direccion.TextChanged
 
     End Sub
+
+    Private Sub txtDetalles_TextChanged(sender As Object, e As EventArgs) Handles txtDetalles.TextChanged
+
+    End Sub
 End Class

@@ -27,68 +27,90 @@ Partial Class Detalle_Insidencia
         Me.Label3 = New System.Windows.Forms.Label()
         Me.CentroVotacion = New System.Windows.Forms.TextBox()
         Me.InsDetalle = New System.Windows.Forms.TextBox()
-        Me.INSEstado = New System.Windows.Forms.TextBox()
+        Me.cbEstado = New System.Windows.Forms.ComboBox()
+        Me.btnSave = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(118, 65)
+        Me.Label1.Location = New System.Drawing.Point(71, 39)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(48, 16)
+        Me.Label1.Size = New System.Drawing.Size(98, 13)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Label1"
+        Me.Label1.Text = "Centro de Votacion"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(374, 64)
+        Me.Label2.Location = New System.Drawing.Point(71, 185)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(48, 16)
+        Me.Label2.Size = New System.Drawing.Size(40, 13)
         Me.Label2.TabIndex = 1
-        Me.Label2.Text = "Label2"
+        Me.Label2.Text = "Detalle"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(694, 65)
+        Me.Label3.Location = New System.Drawing.Point(71, 107)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(48, 16)
+        Me.Label3.Size = New System.Drawing.Size(40, 13)
         Me.Label3.TabIndex = 2
-        Me.Label3.Text = "Label3"
+        Me.Label3.Text = "Estado"
         '
         'CentroVotacion
         '
-        Me.CentroVotacion.Location = New System.Drawing.Point(98, 96)
+        Me.CentroVotacion.Location = New System.Drawing.Point(74, 64)
+        Me.CentroVotacion.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.CentroVotacion.Name = "CentroVotacion"
-        Me.CentroVotacion.Size = New System.Drawing.Size(100, 22)
+        Me.CentroVotacion.Size = New System.Drawing.Size(527, 20)
         Me.CentroVotacion.TabIndex = 3
         '
         'InsDetalle
         '
-        Me.InsDetalle.Location = New System.Drawing.Point(377, 96)
+        Me.InsDetalle.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.InsDetalle.Location = New System.Drawing.Point(74, 211)
+        Me.InsDetalle.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.InsDetalle.Name = "InsDetalle"
-        Me.InsDetalle.Size = New System.Drawing.Size(100, 22)
+        Me.InsDetalle.Size = New System.Drawing.Size(575, 20)
         Me.InsDetalle.TabIndex = 4
         '
-        'INSEstado
+        'cbEstado
         '
-        Me.INSEstado.Location = New System.Drawing.Point(697, 95)
-        Me.INSEstado.Name = "INSEstado"
-        Me.INSEstado.Size = New System.Drawing.Size(100, 22)
-        Me.INSEstado.TabIndex = 5
+        Me.cbEstado.FormattingEnabled = True
+        Me.cbEstado.Location = New System.Drawing.Point(74, 131)
+        Me.cbEstado.Name = "cbEstado"
+        Me.cbEstado.Size = New System.Drawing.Size(121, 21)
+        Me.cbEstado.TabIndex = 6
+        '
+        'btnSave
+        '
+        Me.btnSave.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSave.Location = New System.Drawing.Point(304, 364)
+        Me.btnSave.Name = "btnSave"
+        Me.btnSave.Size = New System.Drawing.Size(130, 34)
+        Me.btnSave.TabIndex = 7
+        Me.btnSave.Text = "Guardar Cambios"
+        Me.btnSave.UseVisualStyleBackColor = True
         '
         'Detalle_Insidencia
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1007, 527)
-        Me.Controls.Add(Me.INSEstado)
+        Me.ClientSize = New System.Drawing.Size(755, 428)
+        Me.Controls.Add(Me.btnSave)
+        Me.Controls.Add(Me.cbEstado)
         Me.Controls.Add(Me.InsDetalle)
         Me.Controls.Add(Me.CentroVotacion)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "Detalle_Insidencia"
         Me.Text = "Detalle_Insidencia"
         Me.ResumeLayout(False)
@@ -101,5 +123,6 @@ Partial Class Detalle_Insidencia
     Friend WithEvents Label3 As Label
     Friend WithEvents CentroVotacion As TextBox
     Friend WithEvents InsDetalle As TextBox
-    Friend WithEvents INSEstado As TextBox
+    Friend WithEvents cbEstado As ComboBox
+    Friend WithEvents btnSave As Button
 End Class

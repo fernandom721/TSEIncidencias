@@ -7,9 +7,10 @@
 
     End Sub
 
-    Private Sub INSEstado_TextChanged(sender As Object, e As EventArgs) Handles INSEstado.TextChanged
+    Private Sub cbEstado_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbEstado.SelectedIndexChanged
 
     End Sub
+
 
     Public Sub New(id As Integer, CV As String, detalle As String, estado As String)
         ' Lógica para inicializar la ventana con la información proporcionada
@@ -19,7 +20,10 @@
         'txtId.Text = id.ToString()
         CentroVotacion.Text = CV
         InsDetalle.Text = detalle
-        INSEstado.Text = estado
+        cbEstado.Text = estado
     End Sub
 
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+
+    End Sub
 End Class
