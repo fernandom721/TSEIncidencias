@@ -38,31 +38,27 @@ Public Class Login
 
             connection.Open()
 
-            Dim query As String = "SELECT Tipo_Usuario FROM usuario WHERE Nombre=@nombreUsuario AND Pass=@contrasena"
+            Dim query As String = "SELECT Tipo_Usuario, ID_USUARIO FROM usuario WHERE Nombre=@nombreUsuario AND Pass=@contrasena"
             Dim cmd As New MySqlCommand(query, connection)
             cmd.Parameters.AddWithValue("@nombreUsuario", nombreUsuario)
             cmd.Parameters.AddWithValue("@contrasena", contrasena)
 
-            Dim tipousuario As Object = cmd.ExecuteScalar()
-            'MessageBox.Show(tipousuario)
-
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
-
-            If reader.HasRows Then
-                'MessageBox.Show("Inicio de sesión exitoso")
-                ' Aquí puedes abrir el formulario principal o realizar otras acciones después del inicio de sesión exitoso
-                If tipousuario IsNot Nothing Then
-                    tipousuario.ToString()
-
+            Try
+                If reader.HasRows Then
+                    reader.Read()
+                    Dim tipousuario As Integer = reader.GetInt32(0)
+                    id_usuario = reader.GetInt32(1)
+                    connection.Close()
                     AbrirVentana(tipousuario)
+                Else
+                    MessageBox.Show("Credenciales incorrectas")
                 End If
-            Else
-                MessageBox.Show("Credenciales incorrectas")
-            End If
-
-            reader.Close()
-
+                connection.Close()
+            Catch ex As Exception
+                MessageBox.Show("Error: " & ex.Message)
+            End Try
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         Finally
