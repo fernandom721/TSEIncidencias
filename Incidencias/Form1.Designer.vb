@@ -39,6 +39,9 @@ Partial Class Form1
         Me.Detalle = New System.Windows.Forms.Label()
         Me.txbDetalle = New System.Windows.Forms.TextBox()
         Me.btnSave = New System.Windows.Forms.Button()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.cbxArea = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
         'Label1
@@ -181,11 +184,40 @@ Partial Class Form1
         Me.btnSave.Text = "Guardar"
         Me.btnSave.UseVisualStyleBackColor = True
         '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(279, 51)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(154, 13)
+        Me.Label8.TabIndex = 17
+        Me.Label8.Text = "Selecciona Centro de Votacion"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(489, 197)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(76, 13)
+        Me.Label9.TabIndex = 18
+        Me.Label9.Text = "Area Asignada"
+        '
+        'cbxArea
+        '
+        Me.cbxArea.FormattingEnabled = True
+        Me.cbxArea.Location = New System.Drawing.Point(489, 215)
+        Me.cbxArea.Name = "cbxArea"
+        Me.cbxArea.Size = New System.Drawing.Size(173, 21)
+        Me.cbxArea.TabIndex = 19
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(719, 446)
+        Me.Controls.Add(Me.cbxArea)
+        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.txbDetalle)
         Me.Controls.Add(Me.Detalle)
@@ -228,4 +260,7 @@ Partial Class Form1
     Friend WithEvents Detalle As Label
     Friend WithEvents txbDetalle As TextBox
     Friend WithEvents btnSave As Button
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents cbxArea As ComboBox
 End Class
