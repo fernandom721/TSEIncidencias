@@ -22,11 +22,11 @@ Public Class Listainsidentes
 
     End Sub
 
-    Private Sub txb_buscar_TextChanged(sender As Object, e As EventArgs) Handles txb_buscar.TextChanged
+    Private Sub txb_buscar_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub btn_buscar_Click(sender As Object, e As EventArgs) Handles btn_buscar.Click
+    Private Sub btn_buscar_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -47,11 +47,12 @@ Public Class Listainsidentes
     Private Sub CargarDatos()
         Try
             connection.Open()
-            Dim consulta As String = "select i.COD_INSIDENCIA as codINS, c.CODIGO_CV_FINAL as CV, c.Nombre as CVNombre, i.Detalle as Detalle, i.Date_inci as Fecha
+            Dim consulta As String = "select i.COD_INSIDENCIA as codINS, c.CODIGO_CV_FINAL as CV, c.Nombre as CVNombre, i.Detalle as Detalle, i.Date_inci as Fecha, e.Nombre as Estado
                                     from centrovotacion c join insidencias i on c.CODIGO_CV_FINAL = i.Cod_CV 
                                     join usuario u on u.COD_ENTIDAD = i.Cod_Entidad 
+                                    join estado e on e.ID_ESTADO = i.Estado 
                                     where i.Estado < 3 and u.ID_USUARIO = @id_usuario
-                                    order by Date_inci asc "
+                                    order by i.Estado  asc ,Date_inci asc "
             Dim cmp As New MySqlDataAdapter(consulta, connection)
             cmp.SelectCommand.Parameters.AddWithValue("@id_usuario", id_usuario)
 

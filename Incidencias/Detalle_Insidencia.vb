@@ -78,7 +78,7 @@ Public Class Detalle_Insidencia
         connection.Open()
         Try
             Dim queryUpdate As String = $"UPDATE insidencias SET Cod_Entidad = {idEntidad}, Estado={idEstado}, 
-                                    Date_inci=NOW() where COD_INSIDENCIA = {_codINC}"
+                                    Date_concluido=NOW() where COD_INSIDENCIA = {_codINC}"
             'MessageBox.Show(idEntidad & idEstado & _codINC)
             Using cmd As New MySqlCommand(queryUpdate, connection)
                 cmd.ExecuteNonQuery()
