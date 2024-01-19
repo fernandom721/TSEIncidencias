@@ -47,6 +47,9 @@ Public Class Form1
                 JOIN departamento d2 ON m.COD_DEPT = d2.COD_DPTO
                 WHERE c.Nombre = '{valorSeleccionado}'"
 
+            If connection.State = ConnectionState.Closed Then
+                connection.Open()
+            End If
 
             Using comando As New MySqlCommand(consultaDetalle, connection)
                 Using lector As MySqlDataReader = comando.ExecuteReader()
@@ -89,15 +92,20 @@ Public Class Form1
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        id_usuario = 2
+        'id_usuario = 2
+
         Dim solicitante As String = txbSolicitante.Text
         Dim contacto As String = txbContactoSol.Text
         Dim detalle As String = txbDetalle.Text
         Dim fechaingreso As DateTime = DateTime.Now()
-        'MessageBox.Show(solicitante & contacto & detalle & fechaingreso & idCV & idarea & id_usuario)
+
         Try
             Dim query As String = "INSERT INTO insidencias (Solicitante, Contacto, Cod_CV, Detalle, Cod_Entidad, Estado, ID_Usuario, Date_inci) 
                         VALUES (@solicitante, @contacto, @idCV, @detalle, @idarea, 1, @id_usuario, @fechaingreso)"
+
+            If connection.State = ConnectionState.Closed Then
+                connection.Open()
+            End If
 
             Dim command As MySqlCommand = New MySqlCommand(query, connection)
 
@@ -106,7 +114,7 @@ Public Class Form1
             command.Parameters.AddWithValue("@idCV", Convert.ToInt32(idCV))
             command.Parameters.AddWithValue("@detalle", detalle)
             command.Parameters.AddWithValue("@idarea", Convert.ToInt32(idarea))
-            command.Parameters.AddWithValue("@id_usuario", Convert.ToInt32(id_usuario))
+            command.Parameters.AddWithValue("@id_usuario", id_usuario)
             command.Parameters.AddWithValue("@fechaingreso", fechaingreso)
 
             command.ExecuteNonQuery()
@@ -114,6 +122,11 @@ Public Class Form1
         Catch ex As Exception
             MessageBox.Show("Error al guardar los datos: " & ex.Message)
         End Try
+
+        txbSolicitante.Text = ""
+        txbContactoSol.Text = ""
+        txbDetalle.Text = ""
+        txbCV.Text = ""
 
     End Sub
 

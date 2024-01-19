@@ -12,10 +12,7 @@ Public Class Login
     Private Usuarios As New List(Of Usuario)()
 
     Private Sub Login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Agregar algunos usuarios de ejemplo
-        Usuarios.Add(New Usuario With {.NombreUsuario = "usuario1", .Contrasena = "contraseña1", .IngVentana = "ingventana1"})
-        Usuarios.Add(New Usuario With {.NombreUsuario = "usuario2", .Contrasena = "contraseña2", .IngVentana = "ingventana2"})
-        ' Puedes agregar más usuarios según sea necesario
+
 
     End Sub
 
@@ -49,8 +46,9 @@ Public Class Login
                 If reader.HasRows Then
                     reader.Read()
                     Dim tipousuario As Integer = reader.GetInt32(0)
-                    id_usuario = reader.GetInt32(1)
+                    id_usuario = reader.GetInt32("ID_USUARIO")
                     connection.Close()
+                    'MessageBox.Show(id_usuario)
                     AbrirVentana(tipousuario)
                 Else
                     MessageBox.Show("Credenciales incorrectas")
@@ -60,7 +58,7 @@ Public Class Login
                 MessageBox.Show("Error: " & ex.Message)
             End Try
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
+            MessageBox.Show("Error" & ex.Message)
         Finally
             connection.Close()
 

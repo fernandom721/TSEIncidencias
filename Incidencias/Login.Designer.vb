@@ -49,7 +49,7 @@ Partial Class Login
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(261, 29)
         Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Reporte de Insidencias"
+        Me.Label1.Text = "Reporte de Incidencias"
         '
         'Label2
         '
