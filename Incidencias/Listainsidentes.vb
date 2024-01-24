@@ -2,16 +2,20 @@
 
 Public Class Listainsidentes
     Private codINC As String
+    Dim timer As New Timer()
+
     Private Sub Listainsidentes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
 
         DataGridView1.AutoGenerateColumns = True
-        Dim timer As New Timer()
-        timer.Interval = 5000
-        AddHandler timer.Tick, AddressOf CargarDatos
-        timer.Start()
 
+        updatetimer()
         CargarDatos()
+
+
+    End Sub
+
+    Private Sub Listaididentes_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
 
     End Sub
 
@@ -23,7 +27,14 @@ Public Class Listainsidentes
     End Sub
 
     Private Sub txb_buscar_TextChanged(sender As Object, e As EventArgs)
-
+        If Not ActiveForm Is Nothing AndAlso ActiveForm.Name = "Detalle_Insidencia" AndAlso ActiveForm.Visible Then
+            ' El formulario que estás buscando está activo y visible
+            ' Realiza las acciones que necesitas hacer cuando el formulario está activo y visible
+            timer.Stop()
+        Else
+            ' El formulario no está activo o no está visible
+            timer.Start()
+        End If
     End Sub
 
     Private Sub btn_buscar_Click(sender As Object, e As EventArgs)
@@ -34,13 +45,15 @@ Public Class Listainsidentes
         'MessageBox.Show(codINC)
         If Not String.IsNullOrEmpty(codINC) Then
             Dim formedit As New Detalle_Insidencia(codINC)
+
             formedit.Show()
+
         Else
             MessageBox.Show("Por favor, seleccione una fila antes de hacer clic en el botón.")
         End If
     End Sub
 
-    Private Sub btn_reporte_Click(sender As Object, e As EventArgs) Handles btn_reporte.Click
+    Private Sub btn_reporte_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -72,5 +85,30 @@ Public Class Listainsidentes
 
     End Sub
 
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
 
+        Dim filtro As String = TextBox1.Text.Trim()
+
+        If filtro <> "" Then
+            timer.Stop()
+            Dim dv As New DataView(CType(DataGridView1.DataSource, DataTable))
+            Dim filtroExpresion As String = String.Format("Convert(codINS, 'System.String') LIKE '%{0}%' OR CVNombre LIKE '%{0}%' OR Detalle LIKE '%{0}%' OR Convert(Fecha, 'System.String') LIKE '%{0}%' OR Estado LIKE '%{0}%'", filtro)
+            dv.RowFilter = filtroExpresion
+
+            ' Crear un DataTable temporal y asignar el DataView filtrado
+            Dim dtFiltrado As DataTable = dv.ToTable()
+            DataGridView1.DataSource = dtFiltrado
+        Else
+            ' Si el cuadro de texto está vacío, vuelve a cargar todos los datos
+            timer.Start()
+            CargarDatos()
+        End If
+
+    End Sub
+
+    Private Sub updatetimer()
+        timer.Interval = 5000
+        AddHandler timer.Tick, AddressOf CargarDatos
+        timer.Start()
+    End Sub
 End Class

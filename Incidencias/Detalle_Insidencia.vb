@@ -6,6 +6,7 @@ Public Class Detalle_Insidencia
     Private _codINC As String
     Dim idEntidad As String
     Dim idEstado As String
+    Dim NombreCV As String
     Public Sub New(codINC As String)
 
         ' Esta llamada es exigida por el diseñador.
@@ -16,25 +17,18 @@ Public Class Detalle_Insidencia
     End Sub
 
     Private Sub Detalle_Insidencia_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        CentroVotacion.ReadOnly = True
+        'CentroVotacion.ReadOnly = True
         txbDireccion.ReadOnly = True
         txbDep.ReadOnly = True
         txbMun.ReadOnly = True
         txbDis.ReadOnly = True
-        txbSolicitante.ReadOnly = True
-        txbContactoSol.ReadOnly = True
-        txbDetalle.ReadOnly = True
+        'txbSolicitante.ReadOnly = True
+        'txbContactoSol.ReadOnly = True
+        'txbDetalle.ReadOnly = True
 
 
         CargarDatos()
 
-    End Sub
-
-    Private Sub btnSave_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub CentroVotacion_TextChanged(sender As Object, e As EventArgs) Handles CentroVotacion.TextChanged
 
     End Sub
 
@@ -74,8 +68,10 @@ Public Class Detalle_Insidencia
 
     End Sub
 
-    Private Sub btnSave_Click_1(sender As Object, e As EventArgs) Handles btnSave.Click
-        connection.Open()
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        If connection.State = ConnectionState.Closed Then
+            connection.Open()
+        End If
         Try
             Dim queryUpdate As String = $"UPDATE insidencias SET Cod_Entidad = {idEntidad}, Estado={idEstado}, 
                                     Date_concluido=NOW() where COD_INSIDENCIA = {_codINC}"
@@ -83,11 +79,13 @@ Public Class Detalle_Insidencia
             Using cmd As New MySqlCommand(queryUpdate, connection)
                 cmd.ExecuteNonQuery()
             End Using
+            connection.Close()
             MessageBox.Show("La incidencia ha sido actualizada")
+
         Catch ex As Exception
             MessageBox.Show("Error al actualizar los datos: " & ex.Message)
         End Try
-        connection.Close()
+
         Me.Close()
 
     End Sub
@@ -133,7 +131,8 @@ Public Class Detalle_Insidencia
         Using command As New MySqlCommand(consulta, connection)
             Using lector As MySqlDataReader = command.ExecuteReader()
                 If lector.Read() Then
-                    CentroVotacion.Text = lector("NombreCV").ToString()
+                    ComboBoxCV.Text = lector("NombreCV").ToString()
+                    'NombreCV = lector("NombreCV").ToString()
                     txbDireccion.Text = lector("Direccion").ToString()
                     txbDep.Text = lector("Departamento").ToString()
                     txbMun.Text = lector("Municipio").ToString()
@@ -146,8 +145,15 @@ Public Class Detalle_Insidencia
                 End If
             End Using
         End Using
+
         connection.Close()
     End Sub
 
+    Private Sub ComboBoxCV_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBoxCV.SelectedIndexChanged
 
+    End Sub
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+
+    End Sub
 End Class
