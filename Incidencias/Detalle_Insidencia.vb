@@ -17,7 +17,8 @@ Public Class Detalle_Insidencia
     End Sub
 
     Private Sub Detalle_Insidencia_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'CentroVotacion.ReadOnly = True
+        txbBuscarCV.ReadOnly = True
+        ComboBoxCV.Enabled = False
         txbDireccion.ReadOnly = True
         txbDep.ReadOnly = True
         txbMun.ReadOnly = True
@@ -68,13 +69,21 @@ Public Class Detalle_Insidencia
 
     End Sub
 
+    Private Sub txbBuscarCV_TextChanged(sender As Object, e As EventArgs) Handles txbBuscarCV.TextChanged
+
+
+
+    End Sub
+
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If connection.State = ConnectionState.Closed Then
             connection.Open()
         End If
         Try
-            Dim queryUpdate As String = $"UPDATE insidencias SET Cod_Entidad = {idEntidad}, Estado={idEstado}, 
-                                    Date_concluido=NOW() where COD_INSIDENCIA = {_codINC}"
+            Dim queryUpdate As String = $"UPDATE insidencias SET Solicitante = '{txbSolicitante.Text}', Contacto = '{txbContactoSol.Text}', 
+                                        Detalle = '{txbDetalle.Text}',
+                                        Cod_Entidad = {idEntidad}, Estado={idEstado}, Date_concluido=NOW()
+                                        where COD_INSIDENCIA = {_codINC}"
             'MessageBox.Show(idEntidad & idEstado & _codINC)
             Using cmd As New MySqlCommand(queryUpdate, connection)
                 cmd.ExecuteNonQuery()
@@ -110,6 +119,15 @@ Public Class Detalle_Insidencia
             ComboBox1.DisplayMember = "Nombre"
         End Using
 
+        'Dim consultaCV As String = "SELECT Nombre, CODIGO_CV_FINAL FROM centrovotacion"
+        'Using adapter As New MySqlDataAdapter(consultaCV, connection)
+        '    Dim tabla As New DataTable()
+        '    adapter.Fill(tabla)
+
+        '    ComboBoxCV.DataSource = tabla
+        '    ComboBoxCV.DisplayMember = "Nombre"
+        'End Using
+
     End Sub
 
     Private Sub CargarDatos()
@@ -132,7 +150,7 @@ Public Class Detalle_Insidencia
             Using lector As MySqlDataReader = command.ExecuteReader()
                 If lector.Read() Then
                     ComboBoxCV.Text = lector("NombreCV").ToString()
-                    'NombreCV = lector("NombreCV").ToString()
+                    NombreCV = lector("NombreCV").ToString()
                     txbDireccion.Text = lector("Direccion").ToString()
                     txbDep.Text = lector("Departamento").ToString()
                     txbMun.Text = lector("Municipio").ToString()
@@ -151,9 +169,39 @@ Public Class Detalle_Insidencia
 
     Private Sub ComboBoxCV_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBoxCV.SelectedIndexChanged
 
+        If ComboBoxCV.SelectedIndex <> -1 Then
+
+            Dim filaSeleccionada As DataRowView = CType(ComboBoxCV.SelectedItem, DataRowView)
+            ' Obtén el valor seleccionado en el ComboBox
+            Dim valorSeleccionado As String = filaSeleccionada("Nombre").ToString()
+
+            Dim consultaDetalle As String = $"SELECT d.Nombre AS NombreDistrito , 
+                m.Nombre AS NombreMunicipio , d2.Nombre AS NombreDepartamento, c.CODIGO_CV_FINAL as codigocv
+                FROM centrovotacion c 
+                JOIN distrito d ON c.COD_DIST = d.COD_DIST 
+                JOIN municipio m ON d.COD_MUN = m.COD_MUN
+                JOIN departamento d2 ON m.COD_DEPT = d2.COD_DPTO
+                WHERE c.Nombre = '{valorSeleccionado}'"
+
+            If connection.State = ConnectionState.Closed Then
+                connection.Open()
+            End If
+
+            Using comando As New MySqlCommand(consultaDetalle, connection)
+                Using lector As MySqlDataReader = comando.ExecuteReader()
+                    If lector.Read() Then
+                        txbDep.Text = lector("NombreDepartamento").ToString()
+                        txbMun.Text = lector("NombreMunicipio").ToString()
+                        txbDis.Text = lector("NombreDistrito").ToString()
+                        _codINC = lector("codigocv").ToString()
+
+                    End If
+
+                End Using
+            End Using
+        End If
+
     End Sub
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
 
-    End Sub
 End Class

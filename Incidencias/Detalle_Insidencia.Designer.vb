@@ -43,7 +43,7 @@ Partial Class Detalle_Insidencia
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.txbBuscarCV = New System.Windows.Forms.TextBox()
         Me.ComboBoxCV = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
@@ -240,12 +240,12 @@ Partial Class Detalle_Insidencia
         Me.ComboBox1.Size = New System.Drawing.Size(258, 28)
         Me.ComboBox1.TabIndex = 38
         '
-        'TextBox1
+        'txbBuscarCV
         '
-        Me.TextBox1.Location = New System.Drawing.Point(55, 111)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(268, 26)
-        Me.TextBox1.TabIndex = 39
+        Me.txbBuscarCV.Location = New System.Drawing.Point(55, 111)
+        Me.txbBuscarCV.Name = "txbBuscarCV"
+        Me.txbBuscarCV.Size = New System.Drawing.Size(268, 26)
+        Me.txbBuscarCV.TabIndex = 39
         '
         'ComboBoxCV
         '
@@ -259,9 +259,9 @@ Partial Class Detalle_Insidencia
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1132, 749)
+        Me.ClientSize = New System.Drawing.Size(1132, 793)
         Me.Controls.Add(Me.ComboBoxCV)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.txbBuscarCV)
         Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.txbDireccion)
@@ -311,6 +311,6 @@ Partial Class Detalle_Insidencia
     Friend WithEvents Label8 As Label
     Friend WithEvents Label10 As Label
     Friend WithEvents ComboBox1 As ComboBox
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents txbBuscarCV As TextBox
     Friend WithEvents ComboBoxCV As ComboBox
 End Class
